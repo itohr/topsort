@@ -1,0 +1,43 @@
+{
+  "services": {
+    "volume": {
+      "depends_on": []
+    },
+    "config-seed": {
+      "depends_on": ["volume"]
+    },
+    "mongo": {
+      "depends_on": ["volume"]
+    },
+    "logging": {
+      "depends_on": ["volume","config-seed","mongo"]
+    },
+    "notifications": {
+      "depends_on": ["logging"]
+    },
+    "data": {
+      "depends_on": ["logging"]
+    },
+    "metadata": {
+      "depends_on": ["logging"]
+    },
+    "command": {
+      "depends_on": ["metadata"]
+    },
+    "scheduler": {
+      "depends_on": ["metadata"]
+    },
+    "export-client": {
+      "depends_on": ["data"]
+    },
+    "export-distro": {
+      "depends_on": ["export-client"]
+    },
+    "rulesengine": {
+      "depends_on": ["export-distro"]
+    },
+    "device-virtual": {
+      "depends_on": ["data","command"]
+    }
+  }
+}
